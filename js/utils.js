@@ -1,17 +1,19 @@
 function saveBugnoteText(issueId, userId, text) {
     const key = 'ImaticPersistentBugnoteText_' + issueId + '_' + userId;
     const encodedText = encodeURIComponent(text);
-
-    localStorage.setItem(key, encodedText);
+    const encryptedText = CryptoJS.AES.encrypt(encodedText, 'secret-key').toString();
+    localStorage.setItem(key, encryptedText);
 }
 
 function loadBugnoteText(issueId, userId) {
     const key = 'ImaticPersistentBugnoteText_' + issueId + '_' + userId;
-    const encodedText = localStorage.getItem(key);
-    if (encodedText === null) {
+    const encryptedText = localStorage.getItem(key);
+    if (encryptedText === null) {
         return null;
     }
-    return decodeURIComponent(encodedText);
+    const bytes = CryptoJS.AES.decrypt(encryptedText, 'secret-key');
+    const decodedText = bytes.toString(CryptoJS.enc.Utf8);
+    return decodeURIComponent(decodedText);
 }
 
 function clearBugnoteText(issueId, userId) {
