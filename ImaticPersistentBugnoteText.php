@@ -36,9 +36,6 @@ class ImaticPersistentBugnoteTextPlugin extends MantisPlugin
                 'issue_id' => $_GET['id'],
             ]));
 
-//            echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
-//<script id="ImaticPersistentBugnoteText" data-settings="' . $t_data . '" src="' . plugin_file('imatic-persistent-bugnote-text.js') . '&v=' . $this->version . '"></script>';
-
             echo '<script src="' . plugin_file('crypto-js.min.js') . '"></script><script id="ImaticPersistentBugnoteText" data-settings="' . $t_data . '" src="' . plugin_file('imatic-persistent-bugnote-text.js') . '&v=' . $this->version . '"></script>';
         }
     }
