@@ -47,8 +47,6 @@ import {
                     const key = await createKey()
                     const loadedText = loadText(key);
 
-                    console.log(key)
-
                     if (loadedText !== '') {
                         bugnoteTextArea.value = loadedText;
 
