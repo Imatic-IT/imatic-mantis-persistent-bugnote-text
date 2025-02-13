@@ -24,19 +24,25 @@ class ImaticPersistentBugnoteTextPlugin extends MantisPlugin
     public function hooks(): array
     {
         return [
-            'EVENT_LAYOUT_BODY_END' => 'layout_body_end_hook',
+            'EVENT_BUGNOTE_ADD_FORM' => 'event_bugnote_add_form',
         ];
     }
 
-    public function layout_body_end_hook()
+    public function event_bugnote_add_form()
     {
-        if (isset($_GET['id'])) {
+        if (!gpc_isset('id')){
+            return;
+        }
+        $f_bug_id = gpc_get_int( 'id' );
+        $t_bug = bug_get( $f_bug_id );
+
             $t_data = htmlspecialchars(json_encode([
                 'user_id' => auth_get_current_user_id(),
-                'issue_id' => $_GET['id'],
+                'issue_id' => $f_bug_id,
+                'bug_last_updated' => $t_bug->last_updated,
+                'check_last_updated_url' => plugin_page('bugCheckLastUpdated'),
             ]));
 
             echo '<script src="' . plugin_file('crypto-js.min.js') . '"></script><script id="ImaticPersistentBugnoteText" data-settings="' . $t_data . '" src="' . plugin_file('imatic-persistent-bugnote-text.js') . '&v=' . $this->version . '"></script>';
-        }
     }
 }

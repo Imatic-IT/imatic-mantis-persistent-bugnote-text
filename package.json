@@ -1,13 +1,13 @@
 {
     "scripts": {
         "build": "webpack -p",
-        "build:watch": "webpack -p --devtool inline-sourcemap --watch"
+        "build:watch": "webpack watch "
     },
     "dependencies": {
         "@types/bootstrap": "^5.2.6",
         "bootstrap": "^5.3.0",
         "sortablejs": "^1.10.2",
-        "webpack": "^4.41.6",
-        "webpack-cli": "^3.3.11"
+        "webpack": "^5.97.1",
+        "webpack-cli": "^6.0.1"
     }
 }
